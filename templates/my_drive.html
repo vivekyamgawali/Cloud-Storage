@@ -1,0 +1,39 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>MY DRIVE</title>
+    {{ JSGlue.include() }}
+</head>
+<body>
+    <h1>welcome to My Drive</h1>
+    <h2>You are logged in as {{session['username']}}</h2>
+    <form method="POST" enctype="multipart/form-data">
+        <input type="file" name="abc" multiple="">
+        <input type="submit" value="Upload File">
+    </form><br>
+    <form method="POST" enctype="multipart/form-data">
+        <input type="file" name="xyz" multiple directory="" webkitdirectory="" mozdirectory="">
+        <input type="submit" value="Upload Folder" >
+    </form>
+    <br>
+    {% if files != None %}
+        <table>
+            {% for i in files: %}
+                <tr>
+                    <td> 
+                        <h3>{{i['filename']}}</h3>
+                    </td>
+                    <td> 
+                        <form >
+                        <button type="submit" formaction="{{ url_for('download',file_name =i.filename) }}">Download</button>
+                        </form>
+                    </td>
+                </tr>
+            {% endfor %}
+        </table>
+    {% endif %}
+</body>
+</html>
